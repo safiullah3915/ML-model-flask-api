@@ -13,11 +13,11 @@ with open('standard_score.pkl', 'rb') as file:
 with open('ridge.pkl', 'rb') as file:
     depression_model = pickle.load(file)
 
-@app.before_request
-def before_request():
-    key = request.headers.get('x-api-key')
-    if not key or key != API_KEY:
-        abort(401, description="Unauthorized: Incorrect or missing API key.")
+# @app.before_request
+# def before_request():
+#     key = request.headers.get('x-api-key')
+#     if not key or key != API_KEY:
+#         abort(401, description="Unauthorized: Incorrect or missing API key.")
 
 def predict_anxiety(responses):
     responses = [responses.get(q, 0) for q in [
@@ -91,6 +91,10 @@ def categorize_depression(score):
             'https://www.youtube.com/watch?v=KSClXw4Wfxs',
             'https://www.youtube.com/watch?v=KSClXw4Wfxs'
         ]
+
+@app.route('/home')
+def home():
+    return "<h1>Hellow World</h1>"
 
         
 @app.route('/', methods= ['POST','GET'])
